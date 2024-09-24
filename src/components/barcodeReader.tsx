@@ -1,4 +1,4 @@
-// BarcodeScanner.tsx
+// barcodeReader.tsx
 import React, { useEffect } from "react";
 import { Html5QrcodeScanner } from "html5-qrcode";
 
@@ -18,6 +18,7 @@ const BarcodeScanner: React.FC<BarcodeScannerProps> = ({
       false
     );
 
+    
     scanner.render(
       (decodedText) => {
         onScanSuccess(decodedText);
@@ -29,8 +30,11 @@ const BarcodeScanner: React.FC<BarcodeScannerProps> = ({
       }
     );
 
+  
     return () => {
-      scanner.clear();
+      scanner.clear().catch(error => {
+        console.error("Failed to clear the scanner", error);
+      });
     };
   }, [onScanSuccess, onScanError]);
 

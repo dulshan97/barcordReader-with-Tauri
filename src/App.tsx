@@ -1,20 +1,27 @@
-// App.tsx
-import React from "react";
+import React, { useState } from "react";
 import BarcodeScanner from "./components/barcodeReader";
 
-const App: React.FC = () => {
+
+
+const App = () => {
+  const [decodedText, setDecodedText] = useState<string>("");
   const handleScanSuccess = (decodedText: string) => {
-    console.log("Scanned Barcode:", decodedText);
+    console.log("Scanned text:", decodedText);
+    setDecodedText(decodedText)
   };
 
   const handleScanError = (errorMessage: string) => {
-    console.error("Scan Error:", errorMessage);
+    console.error("Error while scanning:", errorMessage);
   };
 
   return (
-    <div className="App">
-      <h1>React Barcode Scanner</h1>
+    <div>
+      <h1>Barcode Scanner</h1>
       <BarcodeScanner onScanSuccess={handleScanSuccess} onScanError={handleScanError} />
+
+    <div>
+      <label htmlFor=""> {decodedText}</label>
+    </div>
     </div>
   );
 };
